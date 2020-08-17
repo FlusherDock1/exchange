@@ -40,9 +40,11 @@ class ImportController extends Controller
             }
         } catch (Exchange1CException $e) {
             \Log::error("exchange_1c: failure \n".$e->getMessage()."\n".$e->getFile()."\n".$e->getLine()."\n");
+            
+            $message = iconv('utf-8', 'windows-1251', $e->getMessage());
 
             $response = "failure\n";
-            $response .= $e->getMessage()."\n";
+            $response .= $message."\n";
             $response .= $e->getFile()."\n";
             $response .= $e->getLine()."\n";
 
